@@ -1,0 +1,61 @@
+@include styleModule(
+    'cmodule-backup',
+    (
+        'label-background': #ffffff,
+        'icon-color': #090909,
+        'text-color': #090909,
+        'icon-size': 1.3em,
+        'inner-spacing': 0em
+    )
+);
+
+// The custom/cpu, custom/ram and custom/storage modules mirror the built-in
+// cpu, ram and storage ones and use the same theme variables, so their colours
+// keep following config.json rather than being nailed to a literal #ffffff.
+//
+// IMPORTANT: // comments only. A /* */ comment survives into the compiled CSS,
+// and if it contains any non-ASCII text dart-sass prepends @charset "UTF-8" —
+// which the GTK parser does not understand and silently drops the ENTIRE bar
+// stylesheet.
+
+@include styleModule(
+    'cmodule-cpu',
+    (
+        'text-color': $bar-buttons-modules-cpu-text,
+        'icon-color': $bar-buttons-modules-cpu-icon,
+        'icon-background': $bar-buttons-modules-cpu-icon_background,
+        'label-background': $bar-buttons-modules-cpu-background,
+        'inner-spacing': $bar-buttons-modules-cpu-spacing,
+        'border-enabled': $bar-buttons-modules-cpu-enableBorder,
+        'border-color': $bar-buttons-modules-cpu-border,
+        'icon-size': 1.3em
+    )
+);
+
+@include styleModule(
+    'cmodule-ram',
+    (
+        'text-color': $bar-buttons-modules-ram-text,
+        'icon-color': $bar-buttons-modules-ram-icon,
+        'icon-background': $bar-buttons-modules-ram-icon_background,
+        'label-background': $bar-buttons-modules-ram-background,
+        'inner-spacing': $bar-buttons-modules-ram-spacing,
+        'border-enabled': $bar-buttons-modules-ram-enableBorder,
+        'border-color': $bar-buttons-modules-ram-border,
+        'icon-size': 1.3em
+    )
+);
+
+@include styleModule(
+    'cmodule-storage',
+    (
+        'text-color': $bar-buttons-modules-storage-text,
+        'icon-color': $bar-buttons-modules-storage-icon,
+        'icon-background': $bar-buttons-modules-storage-icon_background,
+        'label-background': $bar-buttons-modules-storage-background,
+        'inner-spacing': $bar-buttons-modules-storage-spacing,
+        'border-enabled': $bar-buttons-modules-storage-enableBorder,
+        'border-color': $bar-buttons-modules-storage-border,
+        'icon-size': 1.3em
+    )
+);

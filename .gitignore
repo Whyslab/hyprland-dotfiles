@@ -1,0 +1,5 @@
+wallpapers/*
+!wallpapers/.gitkeep
+!wallpapers/README.md
+wallpapers.list
+*.swp

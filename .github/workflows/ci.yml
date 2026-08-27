@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  shell:
+    name: Shell scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax check
+        run: find . -name '*.sh' -print0 | xargs -0 -n1 bash -n
+      - uses: ludeeus/action-shellcheck@master
+        with:
+          severity: warning
+
+  tests:
+    name: Test suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install what the tests need
+        run: |
+          sudo apt-get update -qq
+          # ru_RU is needed for the locale regression test: a comma decimal
+          # separator is what breaks the JSON the panel modules emit.
+          sudo apt-get install -y -qq jq locales
+          sudo locale-gen ru_RU.UTF-8 de_DE.UTF-8
+      - run: bash tests/run-tests.sh
+
+  privacy:
+    name: Nothing personal shipped
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # These files came off a working machine. A username or an absolute home
+      # path left in one of them breaks the config for everyone else.
+      - name: No identifiers, no absolute home paths, no untranslated text
+        run: |
+          set -euo pipefail
+          status=0
+          if grep -rniE 'bogdan|dodg1403|arch-laptop' . --exclude-dir=.git --exclude='run-tests.sh' --exclude='ci.yml'; then
+            echo "::error::personal identifier found"; status=1
+          fi
+          if grep -rnE '/home/[a-z][a-z0-9_-]*/' . --exclude-dir=.git --exclude='*.md' \
+                --exclude='run-tests.sh' --exclude='ci.yml' --exclude='btop.conf'; then
+            echo "::error::hard-coded home path found"; status=1
+          fi
+          if grep -rlIP '[\x{0400}-\x{04FF}]' . --exclude-dir=.git --exclude='*.ru.md' --exclude='README.md'; then
+            echo "::error::untranslated text found"; status=1
+          fi
+          exit "$status"

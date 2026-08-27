@@ -1,0 +1,61 @@
+{
+  "custom/cpu": {
+    "icon": "",
+    "label": "{pct}%",
+    "tooltip": "CPU\n──────────────────────────────\nLoad:  {pct}%   ({cores} threads)\n\nHeaviest right now:\n{top}",
+    "execute": "__HOME__/.config/hypr/scripts/hyprpanel-cpu.sh",
+    "interval": 5000,
+    "hideOnEmpty": false,
+    "actions": {
+      "onLeftClick": "~/.config/hypr/scripts/sysmon.sh",
+      "onMiddleClick": "",
+      "onRightClick": ""
+    }
+  },
+  "custom/ram": {
+    "icon": "",
+    "label": "{used}",
+    "tooltip": "Memory\n──────────────────────────────\nTotal:            {total}\nUsed:             {used}  ({pct}%)\nAvailable:        {avail}\nFree:             {free}\nCache & buffers:  {cache}",
+    "execute": "__HOME__/.config/hypr/scripts/hyprpanel-ram.sh",
+    "interval": 2000,
+    "hideOnEmpty": false,
+    "actions": {
+      "onLeftClick": "~/.config/hypr/scripts/sysmon.sh",
+      "onMiddleClick": "",
+      "onRightClick": ""
+    }
+  },
+  "custom/storage": {
+    "icon": "󰋊",
+    "label": "{pct}%",
+    "tooltip": "Disk  /\n──────────────────────────────\nTotal:           {total}\nUsed:            {used}  ({pct}%)\n  by files:      {data}\n  root reserve:  {reserve}\nAvailable:       {avail}",
+    "execute": "__HOME__/.config/hypr/scripts/hyprpanel-storage.sh",
+    "interval": 5000,
+    "hideOnEmpty": false,
+    "actions": {
+      "onLeftClick": "~/.config/hypr/scripts/sysmon.sh",
+      "onMiddleClick": "",
+      "onRightClick": ""
+    }
+  },
+  "custom/backup": {
+    "icon": {
+      "ok": "󰕥",
+      "running": "󰁯",
+      "warning": "󰀦",
+      "error": "󰅚",
+      "none": "󰋼",
+      "default": "󰋼"
+    },
+    "label": "",
+    "tooltip": "Backup — {state}\n\nLast backup:  {time}  ({ago})\nIts size:     {size}\nBackups:      {count}  ·  {repo} on disk",
+    "execute": "/opt/backup-manager/ui/hyprpanel_module.sh",
+    "interval": 60000,
+    "hideOnEmpty": false,
+    "actions": {
+      "onLeftClick": "/opt/backup-manager/ui/rofi_menu.sh",
+      "onMiddleClick": "pkexec /opt/backup-manager/bm refresh-status",
+      "onRightClick": ""
+    }
+  }
+}

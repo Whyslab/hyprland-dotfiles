@@ -1,0 +1,68 @@
+/* --- the Monochrome Vivid theme ---
+ * Palette: config/rofi/config.rasi (bg #0a0a0a, surface #161616, accent
+ * #ffffff on #000000) and config/hypr/colors.conf (panel border
+ * rgba(255,255,255,0.12), JetBrainsMono Nerd Font).
+ * Nothing is signalled with colour: state is the brightness of white.
+ */
+
+* {
+    background-image: none;
+    box-shadow: none;
+    font-family: "JetBrainsMono Nerd Font";
+}
+
+/* The frosted glass comes from layerrule = blur on wlogout in hyprland.conf */
+window {
+    background-color: rgba(10, 10, 10, 0.72);
+}
+
+button {
+    color: #ffffff;
+    background-color: rgba(22, 22, 22, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+
+    background-repeat: no-repeat;
+    background-position: center 32%;
+    background-size: 56px 56px;
+
+    margin: 12px;
+    padding-top: 84px;
+
+    font-size: 14px;
+    font-weight: normal;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+    transition: background-color 0.18s ease, color 0.18s ease,
+                border-color 0.18s ease;
+}
+
+/* The accent is an inversion, matching element selected.normal in rofi */
+button:focus, button:active, button:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+}
+
+/* Icons: monochrome SVGs of our own. The path must be absolute — GTK does not expand ~ */
+#lock      { background-image: image(url("__HOME__/.config/wlogout/icons/lock.svg")); }
+#logout    { background-image: image(url("__HOME__/.config/wlogout/icons/logout.svg")); }
+#suspend   { background-image: image(url("__HOME__/.config/wlogout/icons/suspend.svg")); }
+#hibernate { background-image: image(url("__HOME__/.config/wlogout/icons/hibernate.svg")); }
+#shutdown  { background-image: image(url("__HOME__/.config/wlogout/icons/shutdown.svg")); }
+#reboot    { background-image: image(url("__HOME__/.config/wlogout/icons/reboot.svg")); }
+
+/* On the white tile the icon turns black: background-image does not inherit color */
+#lock:focus, #lock:active, #lock:hover
+    { background-image: image(url("__HOME__/.config/wlogout/icons/lock-dark.svg")); }
+#logout:focus, #logout:active, #logout:hover
+    { background-image: image(url("__HOME__/.config/wlogout/icons/logout-dark.svg")); }
+#suspend:focus, #suspend:active, #suspend:hover
+    { background-image: image(url("__HOME__/.config/wlogout/icons/suspend-dark.svg")); }
+#hibernate:focus, #hibernate:active, #hibernate:hover
+    { background-image: image(url("__HOME__/.config/wlogout/icons/hibernate-dark.svg")); }
+#shutdown:focus, #shutdown:active, #shutdown:hover
+    { background-image: image(url("__HOME__/.config/wlogout/icons/shutdown-dark.svg")); }
+#reboot:focus, #reboot:active, #reboot:hover
+    { background-image: image(url("__HOME__/.config/wlogout/icons/reboot-dark.svg")); }

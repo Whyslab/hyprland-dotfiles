@@ -1,0 +1,113 @@
+/* wallpaper.rasi — the thumbnail grid for picking a wallpaper.
+ *
+ * A separate file rather than config.rasi: there element-icon is pinned to
+ * 24px for application icons, which would squash these thumbnails to dots.
+ * The palette and font are the launcher's. */
+
+@theme "/dev/null"
+
+* {
+    bg:         #0a0a0a;
+    bg-element: #161616;
+    fg:         #ffffff;
+    fg-alt:     #666666;
+    accent:     #ffffff;
+    accent-text: #000000;
+
+    background-color: transparent;
+    text-color: @fg;
+    margin: 0;
+    padding: 0;
+}
+
+window {
+    width: 780px;
+    background-color: @bg;
+    border: 1px solid;
+    border-color: #222222;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+mainbox {
+    spacing: 15px;
+    children: [ inputbar, message, listview ];
+}
+
+inputbar {
+    background-color: @bg-element;
+    border-radius: 12px;
+    padding: 12px 16px;
+    spacing: 12px;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    text-color: @fg-alt;
+    vertical-align: 0.5;
+}
+
+entry {
+    placeholder: "Filter...";
+    placeholder-color: @fg-alt;
+    text-color: @fg;
+    vertical-align: 0.5;
+}
+
+message {
+    background-color: @bg-element;
+    border-radius: 12px;
+    padding: 8px 12px;
+}
+
+textbox {
+    background-color: transparent;
+    text-color: @fg-alt;
+    vertical-align: 0.5;
+}
+
+listview {
+    columns: 3;
+    lines: 2;
+    fixed-height: false;
+    spacing: 10px;
+    scrollbar: false;
+    border: 0;
+}
+
+element {
+    orientation: vertical;
+    padding: 8px;
+    spacing: 8px;
+    border-radius: 10px;
+}
+
+element normal.normal, element alternate.normal {
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element selected.normal {
+    background-color: @accent;
+    text-color: @accent-text;
+}
+
+element-icon {
+    size: 200px;
+    background-color: transparent;
+    horizontal-align: 0.5;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    background-color: transparent;
+    text-color: inherit;
+}
+
+error-message {
+    background-color: @bg;
+    border: 1px solid;
+    border-color: #222222;
+    border-radius: 16px;
+    padding: 20px;
+}

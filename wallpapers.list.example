@@ -1,0 +1,12 @@
+# One wallhaven id per line — the part after /w/ in a wallhaven.cc URL.
+# For https://wallhaven.cc/w/zp92gy the id is: zp92gy
+#
+# Lines starting with # are ignored, so a note about what an image is
+# can live next to it.
+#
+# Copy this file to wallpapers.list and run ./fetch-wallhaven.sh
+
+# A few SFW monochrome ones to start with:
+zp92gy      # dark abstract, 3840x2160
+1qg66v      # minimal, 3840x2160
+7jl2oy      # 1920x1080

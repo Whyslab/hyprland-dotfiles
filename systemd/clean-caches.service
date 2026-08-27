@@ -1,0 +1,6 @@
+[Unit]
+Description=Weekly user cache cleanup
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/clean-caches.sh
