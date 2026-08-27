@@ -234,7 +234,7 @@ if has menus; then
     say "menus"
     place "${SRC}/config/rofi/config.rasi"    "${CONFIG_HOME}/rofi/config.rasi"
     place "${SRC}/config/rofi/wallpaper.rasi" "${CONFIG_HOME}/rofi/wallpaper.rasi"
-    place "${SRC}/config/wlogout/layout"      "${CONFIG_HOME}/wlogout/layout"
+    place_templated "${SRC}/config/wlogout/layout" "${CONFIG_HOME}/wlogout/layout"
     place_templated "${SRC}/config/wlogout/style.css" "${CONFIG_HOME}/wlogout/style.css"
     for icon in "${SRC}"/config/wlogout/icons/*; do
         [[ -f "$icon" ]] && place "$icon" "${CONFIG_HOME}/wlogout/icons/$(basename "$icon")"

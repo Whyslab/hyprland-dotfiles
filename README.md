@@ -174,6 +174,33 @@ through `/var/lib/sddm-wallpaper/current.jpg` (downscaled and re-encoded, so a
 4K original does not cost the greeter anything). `SUPER + SHIFT + W` asks which
 of the three you mean.
 
+The same menu has a **Random** row, with one switch per background. A target
+switched on picks a fresh image from the library at every login — and the lock
+screen at every lock, if you wire that up (see below). The three switches are
+independent: the desktop can shuffle while the login screen stays fixed.
+Picking an image by hand switches that target back off, because a hand-picked
+image and a re-rolled one cannot both be what you asked for.
+
+Two hooks drive it. The login one is already in `hyprland.conf`
+(`wallpaper.sh restore` from `exec-once`). For the lock screen, point
+hypridle's `lock_cmd` at the same script — it is not ours to ship, since
+hypridle's config lives outside this repo:
+
+```ini
+general {
+    lock_cmd = ~/.config/hypr/scripts/wallpaper.sh auto lock; pidof hyprlock || hyprlock
+}
+```
+
+`auto` only touches targets whose switch is on, so both hooks are no-ops until
+you turn something on. From a terminal:
+
+```bash
+wallpaper.sh random lock on      # switch a target on (on|off|toggle, or "all")
+wallpaper.sh random status       # what is on
+wallpaper.sh shuffle desktop     # one random image now, mode or no mode
+```
+
 ## Wallpapers
 
 The directory ships empty. The images used on the machine this came from were

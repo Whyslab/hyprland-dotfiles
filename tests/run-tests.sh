@@ -219,6 +219,69 @@ else
 fi
 
 # --------------------------------------------------------------------------
+group "Random wallpaper mode"
+# --------------------------------------------------------------------------
+# The mode is three switches in one state file, and two hooks that must stay
+# silent until a switch is on. Everything below runs against a fake HOME: the
+# lock target is only a symlink, so no compositor and no daemon are needed.
+WP="$TMP/home"
+mkdir -p "$WP/.config/hypr/wallpapers" "$WP/sddm"
+for n in a b c; do printf 'x' > "$WP/.config/hypr/wallpapers/$n.png"; done
+wp() { HOME="$WP" WALLPAPER_SDDM_DIR="$WP/sddm" bash "$ROOT/scripts/wallpaper.sh" "$@" 2>/dev/null; }
+lock_now() { basename "$(readlink "$WP/.local/state/hypr-wallpaper/lock.img" 2>/dev/null)"; }
+
+[[ "$(wp random status)" == "desktop=off
+lock=off
+sddm=off" ]] && ok "every switch starts off" || nok "the mode is on by default"
+
+wp random lock on >/dev/null
+[[ "$(wp random status)" == "desktop=off
+lock=on
+sddm=off" ]] && ok "one switch on leaves the others alone" \
+             || nok "switching one target on changed another"
+
+[[ -n "$(lock_now)" ]] && ok "switching on applies an image right away" \
+                       || nok "switching on left the target unset"
+
+wp random lock toggle >/dev/null
+[[ "$(wp random status)" == *"lock=off"* ]] && ok "toggle switches back off" \
+                                            || nok "toggle did not switch off"
+
+wp random all on >/dev/null
+wp random all toggle >/dev/null
+[[ "$(wp random status)" == "desktop=off
+lock=off
+sddm=off" ]] && ok "'all' toggles everything off when anything is on" \
+             || nok "'all' did not switch everything off"
+
+# The hook that runs at login and at lock: a no-op while the switch is off, or
+# it would fight with the image the user picked by hand.
+wp random lock on >/dev/null
+wp set lock "$WP/.config/hypr/wallpapers/a.png" >/dev/null
+[[ "$(wp random status)" == *"lock=off"* ]] && ok "picking an image by hand switches the mode off" \
+                                            || nok "a hand-picked image left the mode on"
+wp auto >/dev/null
+[[ "$(lock_now)" == "a.png" ]] && ok "auto leaves a target whose switch is off" \
+                               || nok "auto changed a target that was switched off"
+
+# shuffle ignores the switch — it is the explicit "give me another one" command.
+wp shuffle lock >/dev/null
+[[ "$(lock_now)" != "a.png" ]] && ok "shuffle re-rolls whatever the switch says" \
+                               || nok "shuffle did nothing"
+
+# Two images in a row being the same reads as a broken feature, not as chance.
+wp random lock on >/dev/null
+repeats=0; prev=""
+for _ in $(seq 15); do
+    wp auto lock >/dev/null
+    cur="$(lock_now)"
+    [[ "$cur" == "$prev" ]] && repeats=$((repeats+1))
+    prev="$cur"
+done
+(( repeats == 0 )) && ok "auto never repeats the current image" \
+                   || nok "auto repeated the current image $repeats times"
+
+# --------------------------------------------------------------------------
 printf '\n\033[0;34m==>\033[0m Result: \033[0;32m%d passed\033[0m, ' "$PASS"
 if (( FAIL )); then printf '\033[0;31m%d failed\033[0m\n\n' "$FAIL"; exit 1
 else printf '0 failed\n\n'; exit 0; fi

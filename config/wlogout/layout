@@ -1,4 +1,4 @@
-{ "label":"lock",       "action":"hyprlock",              "text":"Lock",              "keybind":"l" }
+{ "label":"lock",       "action":"__HOME__/.config/hypr/scripts/wallpaper.sh auto lock; hyprlock", "text":"Lock",              "keybind":"l" }
 { "label":"suspend",    "action":"systemctl suspend",     "text":"Suspend",           "keybind":"u" }
 { "label":"shutdown",   "action":"systemctl poweroff",    "text":"Shut down",         "keybind":"s" }
 { "label":"logout",     "action":"hyprctl dispatch exit", "text":"Log out",           "keybind":"e" }
