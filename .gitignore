@@ -3,3 +3,6 @@ wallpapers/*
 !wallpapers/README.md
 wallpapers.list
 *.swp
+
+# graphify knowledge graph (regenerate with: graphify update .)
+graphify-out/
