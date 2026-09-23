@@ -490,7 +490,7 @@
   "theme.bar.buttons.modules.worldclock.icon": "#090909",
   "theme.bar.buttons.modules.worldclock.border": "#FFFFFF",
   "theme.bar.border.width": "0.15em",
-  "theme.bar.outer_spacing": "1.6em",
+  "theme.bar.outer_spacing": "0.5em",
   "theme.bar.buttons.y_margins": "0em",
   "theme.bar.buttons.spacing": "0.25em",
   "theme.bar.buttons.padding_x": "0.7rem",
