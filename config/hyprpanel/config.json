@@ -81,7 +81,7 @@
   "notifications.active_monitor": true,
   "menus.clock.weather.location": "Engerdal",
   "menus.clock.weather.unit": "metric",
-  "menus.clock.weather.key": "f11bf42652c222901a91d02ca310f4d4",
+  "menus.clock.weather.key": "",
   "menus.dashboard.powermenu.avatar.image": "",
   "menus.dashboard.powermenu.avatar.name": "",
   "theme.bar.shadow": "0px 0px 0px 0px #16161e",
